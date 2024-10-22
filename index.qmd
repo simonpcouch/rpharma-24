@@ -12,9 +12,6 @@ knitr:
     comment: "#>"
 ---
 
-<!-- TODO: update emlwr.scss with colors for code -->
-
-
 ![](figures/hero.png){fig-alt='Title slide, reading "Fair machine learning with tidymodels," my name, Simon P. Couch, and my affiliation, Posit Software, PBC. To the right of the text are six hexagonal stickers showing packages from the tidymodels.'}
 
 ------------------------------------------------------------------------
@@ -157,8 +154,6 @@ In tidymodels, this is one added line of code:
 plan(multisession, workers = 4)
 ```
 
-<!-- TODO: figure out how to increase code font size -->
-
 ## Non-default modeling engine
 
 Before:
@@ -168,8 +163,6 @@ Before:
 With a carefully chosen modeling engine:
 
 ![](figures/parallel_resample_opt.png){#parallel_resample_opt-1}
-
-<!--TODO: maybe show the lines of code here  -->
 
 ## Non-default modeling engine
 
