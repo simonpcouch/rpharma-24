@@ -1,0 +1,318 @@
+---
+title: ""
+format: 
+  revealjs:
+    theme: [default, emlwr.scss]
+    footer: '<span style="color:#aa5b31;">github.com/simonpcouch/rpharma-24</span>'
+editor: source
+knitr:
+  opts_chunk: 
+    echo: true
+    collapse: true
+    comment: "#>"
+---
+
+<!-- TODO: update emlwr.scss with colors for code -->
+
+
+![](figures/hero.png){fig-alt='Title slide, reading "Fair machine learning with tidymodels," my name, Simon P. Couch, and my affiliation, Posit Software, PBC. To the right of the text are six hexagonal stickers showing packages from the tidymodels.'}
+
+------------------------------------------------------------------------
+
+```{r}
+#| label: "load"
+#| include: false
+source("data/setup.R")
+
+bm_basic <- qread("data/bm_basic.rds")
+bm_speedy <- qread("data/bm_speedy.rds")
+fit_basic <- qread("data/fit_basic.rds")
+fit_speedy <- qread("data/fit_speedy.rds")
+```
+
+```{r}
+#| label: "prep-objects"
+#| include: false
+set.seed(1)
+d <- simulate_classification(1e5)
+
+set.seed(1)
+d_split <- initial_split(d)
+d_train <- training(d_split)
+d_test <- testing(d_split)
+d_folds <- vfold_cv(d_train)
+
+bt <- 
+  boost_tree(learn_rate = tune(), trees = tune()) %>%
+  set_mode("classification")
+```
+
+## A predictive modeling problem
+
+::: incremental
+-   Binary outcome ("yes" or "no")
+
+-   100,000 rows, 18 columns
+
+-   Mix of numeric and categorical predictors
+:::
+
+. . .
+
+How long does it take to tune a boosted tree model on my laptop?
+
+
+------------------------------------------------------------------------
+
+## Two modeling approaches
+
+<br>
+
+|                  | Basic                  | Optimized               |
+|------------------|------------------------|-------------------------|
+| Evaluation       | Sequential             |         |
+| Grid Design      | Semi-random            |         |
+| Search Strategy  | Grid search            |                   |
+| Modeling Engine  | XGBoost                |               |
+| **Elapsed Time** | `r bench:::format.bench_time(bm_basic$median[1])` |  |
+
+<!-- TODO: figure out whitespace -->
+
+----
+
+## Two modeling approaches
+
+<br>
+
+|                  | Basic                  | Optimized               |
+|------------------|------------------------|-------------------------|
+| Evaluation       | Sequential             | Parallel (4x)           |
+| Grid Design      | Semi-random            | Submodel-enabled        |
+| Search Strategy  | Grid search            | Racing                  |
+| Modeling Engine  | XGBoost                | LightGBM                |
+| **Elapsed Time** | `r bench:::format.bench_time(bm_basic$median[1])` | ... |
+
+-----
+
+## Two modeling approaches
+
+<br>
+
+|                  | Basic                  | Optimized               |
+|------------------|------------------------|-------------------------|
+| Evaluation       | Sequential             | Parallel (4x)           |
+| Grid Design      | Semi-random            | Submodel-enabled        |
+| Search Strategy  | Grid search            | Racing                  |
+| Modeling Engine  | XGBoost                | LightGBM                |
+| **Elapsed Time** | `r bench:::format.bench_time(bm_basic$median[1])` | `r bench:::format.bench_time(bm_speedy$median[1])` |
+
+<!-- TODO: figure out how to make this pop visually -->
+
+. . .
+
+With tidymodels, I can make this transition by adding 6 lines of code and changing 2.
+
+## How did we do it?
+
+Quickly, some background:
+
+```{r}
+#| label: "translate-diagram"
+#| echo: false
+#| fig-align: "center"
+knitr::include_graphics("figures/translate_diagram.png") 
+```
+
+## How did we do it?
+
+Here's our tuning process visualized similarly:
+
+![](figures/basic_resample_w_axis.png){#basic-resample-w-axis-1}
+
+## How did we do it?
+
+Here's our tuning process visualized similarly:
+
+![](figures/basic_resample.png){#basic-resample-1}
+
+## Distributing computations
+
+Sequentially:
+
+![](figures/basic_resample.png){#basic-resample-2}
+
+In parallel:
+
+![](figures/parallel_resample.png){#parallel-resample}
+
+
+## Distributing computations
+
+In tidymodels, this is one added line of code:
+
+<br>
+
+```{r}
+#| eval: false
+plan(multisession, workers = 4)
+```
+
+<!-- TODO: figure out how to increase code font size -->
+
+## Non-default modeling engine
+
+Before:
+
+![](figures/parallel_resample.png){#parallel_resample-2}
+
+With a carefully chosen modeling engine:
+
+![](figures/parallel_resample_opt.png){#parallel_resample_opt-1}
+
+<!--TODO: maybe show the lines of code here  -->
+
+## Non-default modeling engine
+
+In tidymodels, this is one changed line of code. From:
+
+```{r}
+#| eval: false
+spec <- spec %>% set_engine("xgboost")
+```
+
+<br>
+
+To: 
+
+```{r}
+#| eval: false
+spec <- spec %>% set_engine("lightgbm")
+```
+
+## Submodel trick
+
+Before:
+
+![](figures/parallel_resample_opt.png){#parallel_resample_opt-2}
+
+Fitting a third as many models:
+
+![](figures/parallel_resample_opt2.png){#parallel_resample_opt2-1}
+
+## Submodel trick
+
+In tidymodels, this is a few added lines of code:
+
+<br>
+
+```{r}
+#| eval: false
+set.seed(1)
+spec_grid <- spec %>%
+  extract_parameter_set_dials() %>% 
+  grid_regular(levels = 4)
+```
+
+. . .
+
+<br>
+
+In some cases, this "just works" with no changes.
+
+<!-- TODO: explanatory slide, visualizing the two grids -->
+
+## Racing
+
+Before:
+
+![](figures/parallel_resample_opt2.png){#parallel-resample-opt2-2}
+
+Giving up on poorly performing models early:
+
+![](figures/parallel_resample_opt3.png){#parallel_resample_opt3-1}
+
+## Racing
+
+In tidymodels, this is one changed line of code. From:
+
+```{r}
+#| eval: false
+results <- tune_grid(...)
+```
+
+<br>
+
+To:
+
+```{r}
+#| eval: false
+results <- tune_race_anova(...)
+```
+
+## Optimizations, altogether
+
+We went from:
+
+![](figures/basic_resample.png){#basic-resample-last}
+
+To:
+
+![](figures/parallel_resample_opt3.png){#parallel_resample_opt3-last}
+
+## Resources
+
+::: columns
+::: {.column width="40%"}
+-   [tmwr.org]{style="color:#c46938;"}
+:::
+
+::: {.column width="60%"}
+![](https://www.tmwr.org/images/cover.png){height="550" fig-alt='The book cover for "Tidy Modeling with R."' style="box-shadow: 5px 5px 10px gray;"}
+:::
+:::
+
+## Resources
+
+::: columns
+::: {.column width="40%"}
+-   [tmwr.org]{style="color:#c46938;"}
+-   [tidymodels.org]{style="color:#c46938;"}
+:::
+
+::: {.column width="60%"}
+![](figures/article_detectors.png){.absolute top=5% left=45% width=40% fig-alt='Screenshot of an analysis titled "Are GPT detectors fair?"' style="box-shadow: 5px 5px 10px gray;"}
+
+:::
+:::
+
+<!-- TODO: screenshot optimizations vignette -->
+
+## Resources
+
+::: columns
+::: {.column width="40%"}
+-   [tmwr.org]{style="color:#c46938;"}
+-   [tidymodels.org]{style="color:#c46938;"}
+-   [emlwr.org]{style="color:#c46938;"}
+:::
+
+::: {.column width="60%"}
+![](figures/article_detectors.png){.absolute top=5% left=45% width=40% fig-alt='Screenshot of an analysis titled "Are GPT detectors fair?"' style="box-shadow: 5px 5px 10px gray;"}
+
+:::
+:::
+
+<!-- TODO: add some sort of figure here -->
+
+<!-- TODO: link to "Pharmaceutical machine learning article... -->
+
+<!-- TODO: link to performance tag on my blog -->
+
+## Resources
+
+-   [tmwr.org]{style="color:#c46938;"}
+-   [tidymodels.org]{style="color:#c46938;"}
+-   [emlwr.org]{style="color:#c46938;"}
+-   Slides and example notebooks:
+
+<span style="font-size:130%"><center>[github.com/simonpcouch/rpharma-24]{style="color:#c46938;"}</center></span>
