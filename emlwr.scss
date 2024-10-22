@@ -39,3 +39,61 @@ $presentation-heading-color: $charcoal !default;
 .reveal .slide blockquote {
   color: #a1a1a1;
 }
+
+// Additional colors for code
+$code-bg: lighten($charcoal, 73%) !default;  // Very light background
+$code-color: $charcoal !default;
+$code-block-bg: lighten($charcoal, 71%) !default;  // Slightly darker than inline code
+
+/*-- scss:rules --*/
+
+// Your existing rules remain the same
+
+// Code chunk styling
+.reveal div.sourceCode {
+  background-color: $code-block-bg;
+  border-radius: 4px;
+  margin-bottom: 1em;
+}
+
+.reveal pre code {
+  background-color: transparent;
+  padding: 0.5em;
+}
+
+// Syntax highlighting colors
+.reveal .sourceCode {
+  .fu { 
+    color: $rust;
+  }
+  
+  .st { 
+    color: $forest;
+  }
+  
+  .fl, .dv { 
+    color: darken($rust, 10%);
+  }
+  
+  .co { 
+    color: lighten($charcoal, 40%);
+    font-style: italic;
+  }
+  
+  .va, .at { 
+    color: darken($forest, 5%);
+  }
+  
+  .kw { 
+    color: $rust;
+    font-weight: 500;
+  }
+  
+  .op { 
+    color: $charcoal;
+  }
+  
+  .cn { 
+    color: darken($forest, 10%);
+  }
+}
