@@ -392,7 +392,6 @@
 
 <section class="slide level2">
 
-<!-- TODO: update emlwr.scss with colors for code -->
 
 <img data-src="figures/hero.png" alt="Title slide, reading &quot;Fair machine learning with tidymodels,&quot; my name, Simon P. Couch, and my affiliation, Posit Software, PBC. To the right of the text are six hexagonal stickers showing packages from the tidymodels." class="r-stretch"></section>
 <section id="a-predictive-modeling-problem" class="slide level2">
@@ -529,9 +528,6 @@
 </tbody>
 </table>
 <!-- TODO: figure out how to make this pop visually -->
-<div class="fragment">
-<p>With tidymodels, I can make this transition by adding 6 lines of code and changing 2.</p>
-</div>
 </section>
 <section id="how-did-we-do-it" class="slide level2">
 <h2>How did we do it?</h2>
@@ -562,7 +558,6 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">plan</span>(multisession, <span class="at">workers =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<!-- TODO: figure out how to increase code font size -->
 </section>
 <section id="non-default-modeling-engine" class="slide level2">
 <h2>Non-default modeling engine</h2>
@@ -570,18 +565,17 @@
 <p><img data-src="figures/parallel_resample.png" id="parallel_resample-2"></p>
 <p>With a carefully chosen modeling engine:</p>
 <p><img data-src="figures/parallel_resample_opt.png" id="parallel_resample_opt-1"></p>
-<!--TODO: maybe show the lines of code here  -->
 </section>
 <section id="non-default-modeling-engine-1" class="slide level2">
 <h2>Non-default modeling engine</h2>
 <p>In tidymodels, this is one changed line of code. From:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>spec <span class="ot">&lt;-</span> spec <span class="sc">%&gt;%</span> <span class="fu">set_engine</span>(<span class="st">"xgboost"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>spec <span class="ot">&lt;-</span> <span class="fu">boost_tree</span>(<span class="at">engine =</span> <span class="st">"xgboost"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <p>To:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>spec <span class="ot">&lt;-</span> spec <span class="sc">%&gt;%</span> <span class="fu">set_engine</span>(<span class="st">"lightgbm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>spec <span class="ot">&lt;-</span> <span class="fu">boost_tree</span>(<span class="at">engine =</span> <span class="st">"lightgbm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="submodel-trick" class="slide level2">
@@ -601,11 +595,8 @@
 <span id="cb4-3"><a></a>  <span class="fu">extract_parameter_set_dials</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb4-4"><a></a>  <span class="fu">grid_regular</span>(<span class="at">levels =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="fragment">
-<p><br></p>
 <p>In some cases, this “just works” with no changes.</p>
 <!-- TODO: explanatory slide, visualizing the two grids -->
-</div>
 </section>
 <section id="racing" class="slide level2">
 <h2>Racing</h2>
@@ -618,12 +609,12 @@
 <h2>Racing</h2>
 <p>In tidymodels, this is one changed line of code. From:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>results <span class="ot">&lt;-</span> <span class="fu">tune_grid</span>(...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>results <span class="ot">&lt;-</span> <span class="fu">tune_grid</span>(spec, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <p>To:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>results <span class="ot">&lt;-</span> <span class="fu">tune_race_anova</span>(...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>results <span class="ot">&lt;-</span> <span class="fu">tune_race_anova</span>(spec, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="optimizations-altogether" class="slide level2">
@@ -679,7 +670,7 @@
 <li><span style="color:#c46938;">tmwr.org</span></li>
 <li><span style="color:#c46938;">tidymodels.org</span></li>
 <li><span style="color:#c46938;">emlwr.org</span></li>
-<li>Slides and example notebooks:</li>
+<li>Slides and resources:</li>
 </ul>
 <span style="font-size:130%">
 <center>

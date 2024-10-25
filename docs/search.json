@@ -25,7 +25,7 @@
     "href": "index.html#two-modeling-approaches-2",
     "title": "",
     "section": "Two modeling approaches",
-    "text": "Two modeling approaches\n\n\n\n\n\nBasic\nOptimized\n\n\n\n\nEvaluation\nSequential\nParallel (4x)\n\n\nGrid Design\nSemi-random\nSubmodel-enabled\n\n\nSearch Strategy\nGrid search\nRacing\n\n\nModeling Engine\nXGBoost\nLightGBM\n\n\nElapsed Time\n3.68h\n1.52m\n\n\n\n\n\nWith tidymodels, I can make this transition by adding 6 lines of code and changing 2."
+    "text": "Two modeling approaches\n\n\n\n\n\nBasic\nOptimized\n\n\n\n\nEvaluation\nSequential\nParallel (4x)\n\n\nGrid Design\nSemi-random\nSubmodel-enabled\n\n\nSearch Strategy\nGrid search\nRacing\n\n\nModeling Engine\nXGBoost\nLightGBM\n\n\nElapsed Time\n3.68h\n1.52m"
   },
   {
     "objectID": "index.html#how-did-we-do-it",
@@ -74,7 +74,7 @@
     "href": "index.html#non-default-modeling-engine-1",
     "title": "",
     "section": "Non-default modeling engine",
-    "text": "Non-default modeling engine\nIn tidymodels, this is one changed line of code. From:\n\nspec &lt;- spec %&gt;% set_engine(\"xgboost\")\n\n\nTo:\n\nspec &lt;- spec %&gt;% set_engine(\"lightgbm\")"
+    "text": "Non-default modeling engine\nIn tidymodels, this is one changed line of code. From:\n\nspec &lt;- boost_tree(engine = \"xgboost\")\n\n\nTo:\n\nspec &lt;- boost_tree(engine = \"lightgbm\")"
   },
   {
     "objectID": "index.html#submodel-trick",
@@ -88,7 +88,7 @@
     "href": "index.html#submodel-trick-1",
     "title": "",
     "section": "Submodel trick",
-    "text": "Submodel trick\nIn tidymodels, this is a few added lines of code:\n\n\nset.seed(1)\nspec_grid &lt;- spec %&gt;%\n  extract_parameter_set_dials() %&gt;% \n  grid_regular(levels = 4)\n\n\n\nIn some cases, this “just works” with no changes."
+    "text": "Submodel trick\nIn tidymodels, this is a few added lines of code:\n\n\nset.seed(1)\nspec_grid &lt;- spec %&gt;%\n  extract_parameter_set_dials() %&gt;% \n  grid_regular(levels = 4)\n\nIn some cases, this “just works” with no changes."
   },
   {
     "objectID": "index.html#racing",
@@ -102,7 +102,7 @@
     "href": "index.html#racing-1",
     "title": "",
     "section": "Racing",
-    "text": "Racing\nIn tidymodels, this is one changed line of code. From:\n\nresults &lt;- tune_grid(...)\n\n\nTo:\n\nresults &lt;- tune_race_anova(...)"
+    "text": "Racing\nIn tidymodels, this is one changed line of code. From:\n\nresults &lt;- tune_grid(spec, ...)\n\n\nTo:\n\nresults &lt;- tune_race_anova(spec, ...)"
   },
   {
     "objectID": "index.html#optimizations-altogether",
@@ -137,6 +137,6 @@
     "href": "index.html#resources-3",
     "title": "",
     "section": "Resources",
-    "text": "Resources\n\ntmwr.org\ntidymodels.org\nemlwr.org\nSlides and example notebooks:\n\n\n\ngithub.com/simonpcouch/rpharma-24\n\n\n\n\n\ngithub.com/simonpcouch/rpharma-24"
+    "text": "Resources\n\ntmwr.org\ntidymodels.org\nemlwr.org\nSlides and resources:\n\n\n\ngithub.com/simonpcouch/rpharma-24\n\n\n\n\n\ngithub.com/simonpcouch/rpharma-24"
   }
 ]

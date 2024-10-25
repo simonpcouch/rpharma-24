@@ -105,10 +105,6 @@ How long does it take to tune a boosted tree model on my laptop?
 
 <!-- TODO: figure out how to make this pop visually -->
 
-. . .
-
-With tidymodels, I can make this transition by adding 6 lines of code and changing 2.
-
 ## How did we do it?
 
 Quickly, some background:
@@ -170,7 +166,7 @@ In tidymodels, this is one changed line of code. From:
 
 ```{r}
 #| eval: false
-spec <- spec %>% set_engine("xgboost")
+spec <- boost_tree(engine = "xgboost")
 ```
 
 <br>
@@ -179,7 +175,7 @@ To:
 
 ```{r}
 #| eval: false
-spec <- spec %>% set_engine("lightgbm")
+spec <- boost_tree(engine = "lightgbm")
 ```
 
 ## Submodel trick
@@ -206,10 +202,6 @@ spec_grid <- spec %>%
   grid_regular(levels = 4)
 ```
 
-. . .
-
-<br>
-
 In some cases, this "just works" with no changes.
 
 <!-- TODO: explanatory slide, visualizing the two grids -->
@@ -230,7 +222,7 @@ In tidymodels, this is one changed line of code. From:
 
 ```{r}
 #| eval: false
-results <- tune_grid(...)
+results <- tune_grid(spec, ...)
 ```
 
 <br>
@@ -239,7 +231,7 @@ To:
 
 ```{r}
 #| eval: false
-results <- tune_race_anova(...)
+results <- tune_race_anova(spec, ...)
 ```
 
 ## Optimizations, altogether
@@ -306,6 +298,6 @@ To:
 -   [tmwr.org]{style="color:#c46938;"}
 -   [tidymodels.org]{style="color:#c46938;"}
 -   [emlwr.org]{style="color:#c46938;"}
--   Slides and example notebooks:
+-   Slides and resources:
 
 <span style="font-size:130%"><center>[github.com/simonpcouch/rpharma-24]{style="color:#c46938;"}</center></span>
