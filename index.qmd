@@ -109,12 +109,6 @@ knitr::include_graphics("figures/translate_diagram.png")
 
 Here's our tuning process visualized similarly:
 
-![](figures/basic_resample_w_axis.png){#basic-resample-w-axis-1}
-
-## How did we do it?
-
-Here's our tuning process visualized similarly:
-
 ![](figures/basic_resample.png){#basic-resample-1}
 
 ## Distributing computations
@@ -122,6 +116,8 @@ Here's our tuning process visualized similarly:
 Sequentially:
 
 ![](figures/basic_resample.png){#basic-resample-2}
+
+. . .
 
 In parallel:
 
@@ -189,6 +185,8 @@ spec_grid <- spec %>%
   extract_parameter_set_dials() %>% 
   grid_regular(levels = 4)
 ```
+
+<br>
 
 In some cases, this "just works" with no changes.
 

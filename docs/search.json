@@ -35,18 +35,11 @@
     "text": "How did we do it?\nHere’s our tuning process visualized similarly:"
   },
   {
-    "objectID": "index.html#how-did-we-do-it-2",
-    "href": "index.html#how-did-we-do-it-2",
-    "title": "",
-    "section": "How did we do it?",
-    "text": "How did we do it?\nHere’s our tuning process visualized similarly:"
-  },
-  {
     "objectID": "index.html#distributing-computations",
     "href": "index.html#distributing-computations",
     "title": "",
     "section": "Distributing computations",
-    "text": "Distributing computations\nSequentially:\n\nIn parallel:"
+    "text": "Distributing computations\nSequentially:\n\n\nIn parallel:"
   },
   {
     "objectID": "index.html#distributing-computations-1",
@@ -81,7 +74,7 @@
     "href": "index.html#submodel-trick-1",
     "title": "",
     "section": "Submodel trick",
-    "text": "Submodel trick\nIn tidymodels, this is a few added lines of code:\n\n\nset.seed(1)\nspec_grid &lt;- spec %&gt;%\n  extract_parameter_set_dials() %&gt;% \n  grid_regular(levels = 4)\n\nIn some cases, this “just works” with no changes."
+    "text": "Submodel trick\nIn tidymodels, this is a few added lines of code:\n\n\nset.seed(1)\nspec_grid &lt;- spec %&gt;%\n  extract_parameter_set_dials() %&gt;% \n  grid_regular(levels = 4)\n\n\nIn some cases, this “just works” with no changes."
   },
   {
     "objectID": "index.html#racing",

@@ -477,18 +477,15 @@
 <h2>How did we do it?</h2>
 <p>Here’s our tuning process visualized similarly:</p>
 
-<img data-src="figures/basic_resample_w_axis.png" id="basic-resample-w-axis-1" class="r-stretch"></section>
-<section id="how-did-we-do-it-2" class="slide level2">
-<h2>How did we do it?</h2>
-<p>Here’s our tuning process visualized similarly:</p>
-
 <img data-src="figures/basic_resample.png" id="basic-resample-1" class="r-stretch"></section>
 <section id="distributing-computations" class="slide level2">
 <h2>Distributing computations</h2>
 <p>Sequentially:</p>
 <p><img data-src="figures/basic_resample.png" id="basic-resample-2"></p>
+<div class="fragment">
 <p>In parallel:</p>
 <p><img data-src="figures/parallel_resample.png" id="parallel-resample"></p>
+</div>
 </section>
 <section id="distributing-computations-1" class="slide level2">
 <h2>Distributing computations</h2>
@@ -534,6 +531,7 @@
 <span id="cb4-3"><a></a>  <span class="fu">extract_parameter_set_dials</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb4-4"><a></a>  <span class="fu">grid_regular</span>(<span class="at">levels =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><br></p>
 <p>In some cases, this “just works” with no changes.</p>
 <!-- TODO: explanatory slide, visualizing the two grids -->
 </section>
