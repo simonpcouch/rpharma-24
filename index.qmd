@@ -12,7 +12,7 @@ knitr:
     comment: "#>"
 ---
 
-![](figures/hero.png){fig-alt='Title slide, reading "Fair machine learning with tidymodels," my name, Simon P. Couch, and my affiliation, Posit Software, PBC. To the right of the text are six hexagonal stickers showing packages from the tidymodels.'}
+![](figures/hero.png){fig-alt="Title slide, reading \"Fair machine learning with tidymodels,\" my name, Simon P. Couch, and my affiliation, Posit Software, PBC. To the right of the text are six hexagonal stickers showing packages from the tidymodels."}
 
 ------------------------------------------------------------------------
 
@@ -58,52 +58,41 @@ bt <-
 
 How long does it take to tune a boosted tree model on my laptop?
 
-
 ------------------------------------------------------------------------
 
 ## Two modeling approaches
 
-<br>
+```{r}
+#| label: calculate-metrics
+#| include: false
+auc_basic <- collect_metrics(fit_basic) %>%
+  filter(.metric == "roc_auc") %>%
+  pull(.estimate)
 
-|                  | Basic                  | Optimized               |
-|------------------|------------------------|-------------------------|
-| Evaluation       | Sequential             |         |
-| Grid Design      | Semi-random            |         |
-| Search Strategy  | Grid search            |                   |
-| Modeling Engine  | XGBoost                |               |
-| **Elapsed Time** | `r bench:::format.bench_time(bm_basic$median[1])` |  |
+auc_speedy <- collect_metrics(fit_speedy) %>%
+  filter(.metric == "roc_auc") %>%
+  pull(.estimate)
+```
 
-<!-- TODO: figure out whitespace -->
+Tuning a boosted tree...
 
-----
-
-## Two modeling approaches
-
-<br>
-
-|                  | Basic                  | Optimized               |
-|------------------|------------------------|-------------------------|
-| Evaluation       | Sequential             | Parallel (4x)           |
-| Grid Design      | Semi-random            | Submodel-enabled        |
-| Search Strategy  | Grid search            | Racing                  |
-| Modeling Engine  | XGBoost                | LightGBM                |
-| **Elapsed Time** | `r bench:::format.bench_time(bm_basic$median[1])` | ... |
-
------
+| Approach | Error metric | Elapsed time |
+|------------------------|------------------------|------------------------|
+| Default engine + grid search | `r round(auc_basic, 4)` | `r bench:::format.bench_time(bm_basic$median[1])` |
+| Optimized engine + search strategy |  |  |
 
 ## Two modeling approaches
 
-<br>
+Tuning a boosted tree...
 
-|                  | Basic                  | Optimized               |
-|------------------|------------------------|-------------------------|
-| Evaluation       | Sequential             | Parallel (4x)           |
-| Grid Design      | Semi-random            | Submodel-enabled        |
-| Search Strategy  | Grid search            | Racing                  |
-| Modeling Engine  | XGBoost                | LightGBM                |
-| **Elapsed Time** | `r bench:::format.bench_time(bm_basic$median[1])` | `r bench:::format.bench_time(bm_speedy$median[1])` |
+| Approach | Error metric | Elapsed time |
+|------------------------|------------------------|------------------------|
+| Default engine + grid search | `r round(auc_basic, 4)` | `r bench:::format.bench_time(bm_basic$median[1])` |
+| Optimized engine + search strategy | `r round(auc_speedy, 4)` | `r bench:::format.bench_time(bm_speedy$median[1])` |
 
-<!-- TODO: figure out how to make this pop visually -->
+*A `r round(1 - (auc_speedy /auc_basic), 4)*100`% decrease in predictive performance in `r round( (bm_speedy$median[1] /bm_basic$median[1]), 3)*100`% of the time.*
+
+------------------------------------------------------------------------
 
 ## How did we do it?
 
@@ -138,7 +127,6 @@ In parallel:
 
 ![](figures/parallel_resample.png){#parallel-resample}
 
-
 ## Distributing computations
 
 In tidymodels, this is one added line of code:
@@ -171,7 +159,7 @@ spec <- boost_tree(engine = "xgboost")
 
 <br>
 
-To: 
+To:
 
 ```{r}
 #| eval: false
@@ -246,35 +234,34 @@ To:
 
 ## Resources
 
-::: columns
+::::: columns
 ::: {.column width="40%"}
 -   [tmwr.org]{style="color:#c46938;"}
 :::
 
 ::: {.column width="60%"}
-![](https://www.tmwr.org/images/cover.png){height="550" fig-alt='The book cover for "Tidy Modeling with R."' style="box-shadow: 5px 5px 10px gray;"}
+![](https://www.tmwr.org/images/cover.png){height="550" fig-alt="The book cover for \"Tidy Modeling with R.\"" style="box-shadow: 5px 5px 10px gray;"}
 :::
-:::
+:::::
 
 ## Resources
 
-::: columns
+::::: columns
 ::: {.column width="40%"}
 -   [tmwr.org]{style="color:#c46938;"}
 -   [tidymodels.org]{style="color:#c46938;"}
 :::
 
 ::: {.column width="60%"}
-![](figures/article_detectors.png){.absolute top=5% left=45% width=40% fig-alt='Screenshot of an analysis titled "Are GPT detectors fair?"' style="box-shadow: 5px 5px 10px gray;"}
-
+![](figures/article_detectors.png){.absolute top="5%" left="45%" width="40%" fig-alt="Screenshot of an analysis titled \"Are GPT detectors fair?\"" style="box-shadow: 5px 5px 10px gray;"}
 :::
-:::
+:::::
 
 <!-- TODO: screenshot optimizations vignette -->
 
 ## Resources
 
-::: columns
+::::: columns
 ::: {.column width="40%"}
 -   [tmwr.org]{style="color:#c46938;"}
 -   [tidymodels.org]{style="color:#c46938;"}
@@ -282,10 +269,9 @@ To:
 :::
 
 ::: {.column width="60%"}
-![](figures/article_detectors.png){.absolute top=5% left=45% width=40% fig-alt='Screenshot of an analysis titled "Are GPT detectors fair?"' style="box-shadow: 5px 5px 10px gray;"}
-
+![](figures/article_detectors.png){.absolute top="5%" left="45%" width="40%" fig-alt="Screenshot of an analysis titled \"Are GPT detectors fair?\"" style="box-shadow: 5px 5px 10px gray;"}
 :::
-:::
+:::::
 
 <!-- TODO: add some sort of figure here -->
 
@@ -300,4 +286,8 @@ To:
 -   [emlwr.org]{style="color:#c46938;"}
 -   Slides and resources:
 
-<span style="font-size:130%"><center>[github.com/simonpcouch/rpharma-24]{style="color:#c46938;"}</center></span>
+<span style="font-size:130%">
+
+<center>[github.com/simonpcouch/rpharma-24]{style="color:#c46938;"}</center>
+
+</span>

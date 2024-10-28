@@ -11,21 +11,14 @@
     "href": "index.html#two-modeling-approaches",
     "title": "",
     "section": "Two modeling approaches",
-    "text": "Two modeling approaches\n\n\n\n\n\nBasic\nOptimized\n\n\n\n\nEvaluation\nSequential\n\n\n\nGrid Design\nSemi-random\n\n\n\nSearch Strategy\nGrid search\n\n\n\nModeling Engine\nXGBoost\n\n\n\nElapsed Time\n3.68h"
+    "text": "Two modeling approaches\nTuning a boosted tree…\n\n\n\n\n\n\n\n\nApproach\nError metric\nElapsed time\n\n\n\n\nDefault engine + grid search\n0.8957\n3.68h\n\n\nOptimized engine + search strategy"
   },
   {
     "objectID": "index.html#two-modeling-approaches-1",
     "href": "index.html#two-modeling-approaches-1",
     "title": "",
     "section": "Two modeling approaches",
-    "text": "Two modeling approaches\n\n\n\n\n\nBasic\nOptimized\n\n\n\n\nEvaluation\nSequential\nParallel (4x)\n\n\nGrid Design\nSemi-random\nSubmodel-enabled\n\n\nSearch Strategy\nGrid search\nRacing\n\n\nModeling Engine\nXGBoost\nLightGBM\n\n\nElapsed Time\n3.68h\n…"
-  },
-  {
-    "objectID": "index.html#two-modeling-approaches-2",
-    "href": "index.html#two-modeling-approaches-2",
-    "title": "",
-    "section": "Two modeling approaches",
-    "text": "Two modeling approaches\n\n\n\n\n\nBasic\nOptimized\n\n\n\n\nEvaluation\nSequential\nParallel (4x)\n\n\nGrid Design\nSemi-random\nSubmodel-enabled\n\n\nSearch Strategy\nGrid search\nRacing\n\n\nModeling Engine\nXGBoost\nLightGBM\n\n\nElapsed Time\n3.68h\n1.52m"
+    "text": "Two modeling approaches\nTuning a boosted tree…\n\n\n\n\n\n\n\n\nApproach\nError metric\nElapsed time\n\n\n\n\nDefault engine + grid search\n0.8957\n3.68h\n\n\nOptimized engine + search strategy\n0.8954\n1.52m\n\n\n\nA 0.03% decrease in predictive performance in 0.7% of the time."
   },
   {
     "objectID": "index.html#how-did-we-do-it",

@@ -409,125 +409,64 @@
 </section>
 <section id="two-modeling-approaches" class="slide level2">
 <h2>Two modeling approaches</h2>
-<p><br></p>
+<p>Tuning a boosted tree…</p>
 <table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
 <thead>
 <tr class="header">
-<th></th>
-<th>Basic</th>
-<th>Optimized</th>
+<th>Approach</th>
+<th>Error metric</th>
+<th>Elapsed time</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Evaluation</td>
-<td>Sequential</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Grid Design</td>
-<td>Semi-random</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Search Strategy</td>
-<td>Grid search</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Modeling Engine</td>
-<td>XGBoost</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>Elapsed Time</strong></td>
+<td>Default engine + grid search</td>
+<td>0.8957</td>
 <td>3.68h</td>
+</tr>
+<tr class="even">
+<td>Optimized engine + search strategy</td>
+<td></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<!-- TODO: figure out whitespace -->
 </section>
 <section id="two-modeling-approaches-1" class="slide level2">
 <h2>Two modeling approaches</h2>
-<p><br></p>
+<p>Tuning a boosted tree…</p>
 <table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
 <thead>
 <tr class="header">
-<th></th>
-<th>Basic</th>
-<th>Optimized</th>
+<th>Approach</th>
+<th>Error metric</th>
+<th>Elapsed time</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Evaluation</td>
-<td>Sequential</td>
-<td>Parallel (4x)</td>
-</tr>
-<tr class="even">
-<td>Grid Design</td>
-<td>Semi-random</td>
-<td>Submodel-enabled</td>
-</tr>
-<tr class="odd">
-<td>Search Strategy</td>
-<td>Grid search</td>
-<td>Racing</td>
-</tr>
-<tr class="even">
-<td>Modeling Engine</td>
-<td>XGBoost</td>
-<td>LightGBM</td>
-</tr>
-<tr class="odd">
-<td><strong>Elapsed Time</strong></td>
+<td>Default engine + grid search</td>
+<td>0.8957</td>
 <td>3.68h</td>
-<td>…</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="two-modeling-approaches-2" class="slide level2">
-<h2>Two modeling approaches</h2>
-<p><br></p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th>Basic</th>
-<th>Optimized</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Evaluation</td>
-<td>Sequential</td>
-<td>Parallel (4x)</td>
 </tr>
 <tr class="even">
-<td>Grid Design</td>
-<td>Semi-random</td>
-<td>Submodel-enabled</td>
-</tr>
-<tr class="odd">
-<td>Search Strategy</td>
-<td>Grid search</td>
-<td>Racing</td>
-</tr>
-<tr class="even">
-<td>Modeling Engine</td>
-<td>XGBoost</td>
-<td>LightGBM</td>
-</tr>
-<tr class="odd">
-<td><strong>Elapsed Time</strong></td>
-<td>3.68h</td>
+<td>Optimized engine + search strategy</td>
+<td>0.8954</td>
 <td>1.52m</td>
 </tr>
 </tbody>
 </table>
-<!-- TODO: figure out how to make this pop visually -->
+<p><em>A 0.03% decrease in predictive performance in 0.7% of the time.</em></p>
 </section>
 <section id="how-did-we-do-it" class="slide level2">
 <h2>How did we do it?</h2>
@@ -672,7 +611,7 @@
 <li><span style="color:#c46938;">emlwr.org</span></li>
 <li>Slides and resources:</li>
 </ul>
-<span style="font-size:130%">
+<p><span style="font-size:130%"></span></p>
 <center>
 <span style="color:#c46938;">github.com/simonpcouch/rpharma-24</span>
 </center>
@@ -683,7 +622,7 @@
 <p><span style="color:#aa5b31;">github.com/simonpcouch/rpharma-24</span></p>
 </div>
 </div>
-</span></section>
+</section>
     </div>
   </div>
 
