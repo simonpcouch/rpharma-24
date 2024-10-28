@@ -74,16 +74,12 @@ auc_speedy <- collect_metrics(fit_speedy) %>%
   pull(.estimate)
 ```
 
-Tuning a boosted tree...
-
 | Approach | Area under ROC | Elapsed time |
 |------------------------|------------------------|------------------------|
 | Default engine + grid search | `r round(auc_basic, 4)` | `r bench:::format.bench_time(bm_basic$median[1])` |
 | Optimized engine + search strategy |  |  |
 
 ## Two modeling approaches
-
-Tuning a boosted tree...
 
 | Approach | Area under ROC | Elapsed time |
 |------------------------|------------------------|------------------------|

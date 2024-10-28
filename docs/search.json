@@ -11,14 +11,14 @@
     "href": "index.html#two-modeling-approaches",
     "title": "",
     "section": "Two modeling approaches",
-    "text": "Two modeling approaches\nTuning a boosted tree…\n\n\n\n\n\n\n\n\nApproach\nArea under ROC\nElapsed time\n\n\n\n\nDefault engine + grid search\n0.8957\n3.68h\n\n\nOptimized engine + search strategy"
+    "text": "Two modeling approaches\n\n\n\n\n\n\n\n\nApproach\nArea under ROC\nElapsed time\n\n\n\n\nDefault engine + grid search\n0.8957\n3.68h\n\n\nOptimized engine + search strategy"
   },
   {
     "objectID": "index.html#two-modeling-approaches-1",
     "href": "index.html#two-modeling-approaches-1",
     "title": "",
     "section": "Two modeling approaches",
-    "text": "Two modeling approaches\nTuning a boosted tree…\n\n\n\n\n\n\n\n\nApproach\nArea under ROC\nElapsed time\n\n\n\n\nDefault engine + grid search\n0.8957\n3.68h\n\n\nOptimized engine + search strategy\n0.8954\n1.52m\n\n\n\nA 0.03% decrease in predictive performance in 0.7% of the time."
+    "text": "Two modeling approaches\n\n\n\n\n\n\n\n\nApproach\nArea under ROC\nElapsed time\n\n\n\n\nDefault engine + grid search\n0.8957\n3.68h\n\n\nOptimized engine + search strategy\n0.8954\n1.52m\n\n\n\nA 0.03% decrease in predictive performance in 0.7% of the time."
   },
   {
     "objectID": "index.html#how-did-we-do-it",
