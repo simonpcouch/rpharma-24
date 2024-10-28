@@ -76,7 +76,7 @@ auc_speedy <- collect_metrics(fit_speedy) %>%
 
 Tuning a boosted tree...
 
-| Approach | Error metric | Elapsed time |
+| Approach | Area under ROC | Elapsed time |
 |------------------------|------------------------|------------------------|
 | Default engine + grid search | `r round(auc_basic, 4)` | `r bench:::format.bench_time(bm_basic$median[1])` |
 | Optimized engine + search strategy |  |  |
@@ -85,7 +85,7 @@ Tuning a boosted tree...
 
 Tuning a boosted tree...
 
-| Approach | Error metric | Elapsed time |
+| Approach | Area under ROC | Elapsed time |
 |------------------------|------------------------|------------------------|
 | Default engine + grid search | `r round(auc_basic, 4)` | `r bench:::format.bench_time(bm_basic$median[1])` |
 | Optimized engine + search strategy | `r round(auc_speedy, 4)` | `r bench:::format.bench_time(bm_speedy$median[1])` |
